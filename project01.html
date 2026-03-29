@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>// project_01</title>
+        <link rel="stylesheet" href="/assets/css/project01.css" />
+    </head>
+    <body>
+        <div id="cursor"></div>
+        <div id="cursor-trail"></div>
+
+        <div id="app">
+            <div id="toolbar">
+                <h1 id="title-text">GLITCH</h1>
+                <div class="sep"></div>
+
+                <div class="ctrl">
+                    <label>RGB</label>
+                    <input
+                        type="range"
+                        id="sl-rgb"
+                        min="0"
+                        max="100"
+                        value="40"
+                    />
+                    <span class="val-display" id="val-rgb">40</span>
+                </div>
+
+                <div class="ctrl">
+                    <label>SHIFT</label>
+                    <input
+                        type="range"
+                        id="sl-shift"
+                        min="0"
+                        max="100"
+                        value="50"
+                    />
+                    <span class="val-display" id="val-shift">50</span>
+                </div>
+
+                <div class="ctrl">
+                    <label>NOISE</label>
+                    <input
+                        type="range"
+                        id="sl-noise"
+                        min="0"
+                        max="100"
+                        value="30"
+                    />
+                    <span class="val-display" id="val-noise">30</span>
+                </div>
+
+                <div class="ctrl">
+                    <label>DECAY</label>
+                    <input
+                        type="range"
+                        id="sl-block"
+                        min="0"
+                        max="100"
+                        value="40"
+                    />
+                    <span class="val-display" id="val-block">40</span>
+                </div>
+
+                <div class="sep"></div>
+
+                <div class="ctrl">
+                    <label>MODE</label>
+                    <select id="mouse-mode">
+                        <option value="intensity">FEED</option>
+                        <option value="rgb">SPLIT</option>
+                        <option value="paint">INFECT</option>
+                        <option value="warp">COLLAPSE</option>
+                    </select>
+                </div>
+
+                <div class="sep"></div>
+
+                <div class="ctrl">
+                    <button id="btn-freeze">FREEZE</button>
+                    <button id="btn-reset">PURGE</button>
+                    <button id="btn-save">EXTRACT</button>
+                </div>
+
+                <div class="ctrl">
+                    <button id="upload-btn-toolbar">LOAD</button>
+                    <button id="gen-pattern">GENERATE</button>
+                </div>
+
+                <input type="file" id="file-input" accept="image/*" />
+            </div>
+
+            <div id="canvas-wrap">
+                <div id="upload-overlay">
+                    <div class="overlay-title" data-text="ГЛИТЧ АРТ ГЕНЕРАТОР">
+                        ГЛИТЧ АРТ ГЕНЕРАТОР
+                    </div>
+                    <button class="overlay-btn" id="upload-btn">
+                        ЗАГРУЗИТЬ ИЗОБРАЖЕНИЕ
+                    </button>
+                    <button class="overlay-btn" id="gen-btn">
+                        СОЗДАТЬ ПАТТЕРН
+                    </button>
+                </div>
+                <canvas id="canvas"></canvas>
+            </div>
+        </div>
+
+        <div id="whisper">MOVE YOUR MOUSE</div>
+        <div id="error-flash"></div>
+        <div id="coords">X:000 Y:000</div>
+        <div id="status-bar">SYSTEM READY</div>
+
+        <div id="eye-container">
+            <svg id="eye-svg" width="120" height="60" viewBox="0 0 120 60">
+                <ellipse
+                    cx="60"
+                    cy="30"
+                    rx="55"
+                    ry="25"
+                    fill="none"
+                    stroke="#1a0000"
+                    stroke-width="1"
+                />
+                <circle cx="60" cy="30" r="18" fill="#0a0000" />
+                <circle id="pupil" cx="60" cy="30" r="8" fill="#1a0000" />
+                <circle
+                    id="pupil-highlight"
+                    cx="60"
+                    cy="30"
+                    r="12"
+                    fill="none"
+                    stroke="#2a0000"
+                    stroke-width="0.5"
+                />
+                <ellipse
+                    cx="60"
+                    cy="30"
+                    rx="55"
+                    ry="25"
+                    fill="none"
+                    stroke="#3a0000"
+                    stroke-width="0.5"
+                />
+            </svg>
+        </div>
+
+        <script src="assets/js/project01.js"></script>
+    </body>
+</html>
