@@ -1,0 +1,528 @@
+/* ============================================
+   VOID.WORKS — Main Stylesheet
+   ============================================ */
+
+/* ---------- FONTS ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Space+Grotesk:wght@300;400;700&display=swap');
+
+/* ---------- RESET & BASE ---------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg:        #0a0a0a;
+  --bg-2:      #111111;
+  --bg-3:      #181818;
+  --border:    #2a2a2a;
+  --text:      #c8c8c8;
+  --text-dim:  #555555;
+  --accent:    #e0e0e0;
+  --red:       #8b0000;
+  --mono:      'Share Tech Mono', monospace;
+  --sans:      'Space Grotesk', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) var(--bg);
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  cursor: none; /* скрываем стандартный курсор */
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+/* ---------- КАСТОМНЫЙ КУРСОР ---------- */
+.cursor {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.05s, background 0.2s;
+  mix-blend-mode: difference;
+}
+
+.cursor-trail {
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(200, 200, 200, 0.3);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: left 0.12s ease-out, top 0.12s ease-out;
+}
+
+.cursor.active {
+  transform: translate(-50%, -50%) scale(2);
+  background: var(--red);
+}
+
+/* ---------- GRAIN OVERLAY ---------- */
+.grain {
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  pointer-events: none;
+  z-index: 9000;
+  opacity: 0.045;
+  animation: grain-move 0.5s steps(2) infinite;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+}
+
+@keyframes grain-move {
+  0%  { transform: translate(0, 0); }
+  25% { transform: translate(-3%, 2%); }
+  50% { transform: translate(2%, -3%); }
+  75% { transform: translate(-2%, -2%); }
+  100%{ transform: translate(3%, 1%); }
+}
+
+/* ---------- НАВИГАЦИЯ ---------- */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 3rem;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s, background 0.3s;
+}
+
+.nav.scrolled {
+  border-color: var(--border);
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(8px);
+}
+
+.nav-logo {
+  font-family: var(--mono);
+  font-size: 1rem;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+}
+
+.nav-links a {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  letter-spacing: 0.08em;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: var(--accent);
+}
+
+.nav-secret {
+  color: var(--red) !important;
+  animation: flicker 4s infinite;
+}
+
+/* ---------- HERO ---------- */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6rem 3rem 3rem;
+  position: relative;
+}
+
+.hero-label {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  letter-spacing: 0.15em;
+  margin-bottom: 1.5rem;
+}
+
+.hero-title {
+  font-size: clamp(3.5rem, 10vw, 8rem);
+  font-weight: 700;
+  line-height: 0.95;
+  color: var(--accent);
+  margin-bottom: 2rem;
+  letter-spacing: -0.02em;
+}
+
+.hero-sub {
+  font-size: 1rem;
+  color: var(--text-dim);
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+}
+
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 3rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  animation: blink 1.5s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* ---------- GLITCH EFFECT ---------- */
+.glitch {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  color: var(--accent);
+}
+
+.glitch::before {
+  animation: glitch-1 3.5s infinite;
+  clip-path: polygon(0 0, 100% 0, 100% 40%, 0 40%);
+  transform: translate(-3px, 0);
+  opacity: 0;
+}
+
+.glitch::after {
+  animation: glitch-2 3.5s infinite;
+  clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+  transform: translate(3px, 0);
+  opacity: 0;
+  color: var(--red);
+}
+
+@keyframes glitch-1 {
+  0%, 94%, 100% { opacity: 0; transform: translate(0, 0); }
+  95%           { opacity: 0.8; transform: translate(-4px, 1px); }
+  97%           { opacity: 0.8; transform: translate(4px, -1px); }
+}
+
+@keyframes glitch-2 {
+  0%, 94%, 100% { opacity: 0; transform: translate(0, 0); }
+  96%           { opacity: 0.6; transform: translate(4px, 2px); }
+  98%           { opacity: 0.6; transform: translate(-4px, -2px); }
+}
+
+/* ---------- КНОПКИ ---------- */
+.btn-ghost {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  padding: 0.75rem 1.75rem;
+  border: 1px solid var(--border);
+  color: var(--text);
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  cursor: none;
+}
+
+.btn-ghost:hover {
+  border-color: var(--accent);
+  color: var(--bg);
+  background: var(--accent);
+}
+
+/* ---------- СЕКЦИИ ---------- */
+.section {
+  padding: 7rem 3rem;
+  border-top: 1px solid var(--border);
+}
+
+.section-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.section-tag {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  letter-spacing: 0.2em;
+  margin-bottom: 0.5rem;
+}
+
+.section-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 3rem;
+  letter-spacing: -0.02em;
+}
+
+/* ---------- ABOUT ---------- */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.about-text p {
+  color: var(--text);
+  margin-bottom: 1rem;
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+.about-skills ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.about-skills li {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.2s, padding-left 0.2s;
+}
+
+.about-skills li:hover {
+  color: var(--accent);
+  padding-left: 0.5rem;
+}
+
+/* ---------- WORK ---------- */
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.work-card {
+  border: 1px solid var(--border);
+  background: var(--bg-2);
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+.work-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+}
+
+.work-card-img {
+  height: 180px;
+  background: var(--bg-3);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Псевдо-плейсхолдер для изображения */
+.work-card-img::after {
+  content: '[ no signal ]';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+}
+
+.work-card-info {
+  padding: 1.25rem;
+}
+
+.work-card-tag {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+}
+
+.work-card-info h3 {
+  font-size: 1.1rem;
+  color: var(--accent);
+  margin: 0.5rem 0 0.4rem;
+}
+
+.work-card-info p {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.work-link {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--text);
+  transition: color 0.2s;
+}
+
+.work-link:hover {
+  color: var(--accent);
+}
+
+/* ---------- CONTACT ---------- */
+.contact-inner {
+  text-align: center;
+}
+
+.contact-text {
+  font-size: 1rem;
+  color: var(--text-dim);
+  margin-bottom: 2.5rem;
+  line-height: 1.8;
+}
+
+/* ---------- VOID / GAME SECTION ---------- */
+.void-section {
+  background: var(--bg-2);
+  text-align: center;
+}
+
+.void-text {
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  color: var(--red);
+  margin-bottom: 2.5rem;
+  animation: flicker 3s infinite;
+}
+
+@keyframes flicker {
+  0%, 100%  { opacity: 1; }
+  92%       { opacity: 1; }
+  93%       { opacity: 0.3; }
+  94%       { opacity: 1; }
+  96%       { opacity: 0.4; }
+  97%       { opacity: 1; }
+}
+
+.game-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+#game-canvas {
+  display: none; /* скрыт до старта */
+  border: 1px solid var(--border);
+  max-width: 100%;
+  image-rendering: pixelated;
+}
+
+#game-canvas.visible {
+  display: block;
+}
+
+.btn-play {
+  font-size: 1rem;
+  padding: 1rem 2.5rem;
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.btn-play:hover {
+  background: var(--red);
+  color: var(--accent);
+  border-color: var(--red);
+}
+
+.game-hint {
+  display: none;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+}
+
+.game-hint.visible {
+  display: block;
+}
+
+/* ---------- FOOTER ---------- */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 3rem;
+  border-top: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+/* ---------- SCROLL REVEAL ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- АДАПТИВ ---------- */
+@media (max-width: 768px) {
+  .nav {
+    padding: 1rem 1.5rem;
+  }
+
+  .nav-links {
+    gap: 1.2rem;
+  }
+
+  .hero,
+  .section {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .footer {
+    padding: 1.5rem;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
