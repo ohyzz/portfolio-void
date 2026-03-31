@@ -40,8 +40,58 @@
                 <p class="hero-sub">I build things that live in the dark.</p>
                 <a href="#work" class="btn-ghost">view work</a>
             </div>
+
+            <!-- Вращающаяся спираль -->
+            <div class="hero-spiral" aria-hidden="true">
+                <svg class="spiral-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <filter id="fuzz">
+                            <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="noise"/>
+                            <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+                        </filter>
+                    </defs>
+                    <circle cx="150" cy="150" r="140" fill="none" stroke="rgba(139,0,0,0.12)" stroke-width="1"/>
+                    <circle cx="150" cy="150" r="120" fill="none" stroke="rgba(139,0,0,0.18)" stroke-width="0.5"/>
+                    <circle cx="150" cy="150" r="100" fill="none" stroke="rgba(200,184,154,0.06)" stroke-width="1"/>
+                    <circle cx="150" cy="150" r="80"  fill="none" stroke="rgba(139,0,0,0.22)" stroke-width="0.5"/>
+                    <circle cx="150" cy="150" r="60"  fill="none" stroke="rgba(200,184,154,0.08)" stroke-width="1"/>
+                    <circle cx="150" cy="150" r="40"  fill="none" stroke="rgba(139,0,0,0.35)" stroke-width="0.5"/>
+                    <circle cx="150" cy="150" r="20"  fill="none" stroke="rgba(200,184,154,0.15)" stroke-width="1"/>
+                    <circle cx="150" cy="150" r="5"   fill="rgba(139,0,0,0.5)"/>
+                    <line x1="150" y1="10"  x2="150" y2="290" stroke="rgba(139,0,0,0.06)" stroke-width="0.5"/>
+                    <line x1="10"  y1="150" x2="290" y2="150" stroke="rgba(139,0,0,0.06)" stroke-width="0.5"/>
+                    <line x1="51"  y1="51"  x2="249" y2="249" stroke="rgba(139,0,0,0.04)" stroke-width="0.5"/>
+                    <line x1="249" y1="51"  x2="51"  y2="249" stroke="rgba(139,0,0,0.04)" stroke-width="0.5"/>
+                    <path d="M150,150 Q170,130 160,110 Q148,88 128,98 Q105,110 115,133 Q126,158 152,162 Q180,165 194,143 Q210,118 196,92 Q180,63 150,58 Q116,53 96,75 Q73,100 80,135 Q88,172 120,188 Q155,204 190,192"
+                          fill="none" stroke="rgba(212,82,58,0.4)" stroke-width="1.5" filter="url(#fuzz)"/>
+                </svg>
+            </div>
+
             <div class="hero-scroll-hint">scroll_</div>
         </section>
+
+        <!-- ===== TICKER ===== -->
+        <div class="ticker-wrap" aria-hidden="true">
+            <div class="ticker-inner">
+                <span>HTML / CSS</span><span class="t-sep">█</span>
+                <span>JavaScript</span><span class="t-sep">█</span>
+                <span>Canvas API</span><span class="t-sep">█</span>
+                <span>WebGL</span><span class="t-sep">█</span>
+                <span>Creative Coding</span><span class="t-sep">█</span>
+                <span>Dark UI</span><span class="t-sep">█</span>
+                <span>Web Audio</span><span class="t-sep">█</span>
+                <span>Performance</span><span class="t-sep">█</span>
+                <!-- дублируем для бесшовного цикла -->
+                <span>HTML / CSS</span><span class="t-sep">█</span>
+                <span>JavaScript</span><span class="t-sep">█</span>
+                <span>Canvas API</span><span class="t-sep">█</span>
+                <span>WebGL</span><span class="t-sep">█</span>
+                <span>Creative Coding</span><span class="t-sep">█</span>
+                <span>Dark UI</span><span class="t-sep">█</span>
+                <span>Web Audio</span><span class="t-sep">█</span>
+                <span>Performance</span><span class="t-sep">█</span>
+            </div>
+        </div>
 
         <!-- ===== ABOUT ===== -->
         <section class="section" id="about">
@@ -78,49 +128,64 @@
             <div class="section-inner">
                 <p class="section-tag">// 002</p>
                 <h2 class="section-title">Work</h2>
-                <div class="work-grid">
-                    <div class="work-card">
-                        <div class="work-card-img"></div>
-                        <div class="work-card-info">
-                            <span class="work-card-tag">web / experiment</span>
-                            <h3>Project_01</h3>
-                            <p>
-                                A glitch art generator that feeds on your mouse
-                                input.
-                            </p>
-                            <a href="project01.html" class="work-link"
-                                >view ↗</a
-                            >
+                <div class="work-grid-tds">
+
+                    <div class="wc" data-num="001">
+                        <div class="wc-preview" id="preview-01">
+                            <canvas class="wc-canvas" id="mini-canvas-01"></canvas>
+                            <span class="wc-nosignal">[ no signal ]</span>
+                        </div>
+                        <div class="wc-body">
+                            <div class="wc-meta">
+                                <span class="wc-num">001</span>
+                                <span class="wc-tag">web / experiment</span>
+                            </div>
+                            <h3 class="wc-title">GLITCH<br>GENERATOR</h3>
+                            <p class="wc-desc">A glitch art generator that feeds on your mouse input.</p>
+                            <div class="wc-footer">
+                                <span class="wc-year">2024</span>
+                                <a href="project01.html" class="wc-link">open ↗</a>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="work-card">
-                        <div class="work-card-img"></div>
-                        <div class="work-card-info">
-                            <span class="work-card-tag">canvas / audio</span>
-                            <h3>Project_02</h3>
-                            <p>
-                                Sound visualizer built for a dark, underground
-                                venue.
-                            </p>
-                            <a href="#" class="work-link">view ↗</a>
+                    <div class="wc" data-num="002">
+                        <div class="wc-preview" id="preview-02">
+                            <canvas class="wc-canvas" id="mini-canvas-02"></canvas>
+                            <span class="wc-nosignal">[ no signal ]</span>
+                        </div>
+                        <div class="wc-body">
+                            <div class="wc-meta">
+                                <span class="wc-num">002</span>
+                                <span class="wc-tag">canvas / audio</span>
+                            </div>
+                            <h3 class="wc-title">SOUND<br>VISUALIZER</h3>
+                            <p class="wc-desc">Sound visualizer built for a dark, underground venue.</p>
+                            <div class="wc-footer">
+                                <span class="wc-year">2024</span>
+                                <a href="project02.html" class="wc-link">open ↗</a>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="work-card">
-                        <div class="work-card-img"></div>
-                        <div class="work-card-info">
-                            <span class="work-card-tag"
-                                >tool / open source</span
-                            >
-                            <h3>Project_03</h3>
-                            <p>
-                                CLI tool for generating noise textures in the
-                                terminal.
-                            </p>
-                            <a href="#" class="work-link">view ↗</a>
+                    <div class="wc wc-locked" data-num="003">
+                        <div class="wc-preview">
+                            <span class="wc-nosignal">[ in progress ]</span>
+                        </div>
+                        <div class="wc-body">
+                            <div class="wc-meta">
+                                <span class="wc-num">003</span>
+                                <span class="wc-tag">tool / open source</span>
+                            </div>
+                            <h3 class="wc-title">NOISE<br>CLI</h3>
+                            <p class="wc-desc">CLI tool for generating noise textures in the terminal.</p>
+                            <div class="wc-footer">
+                                <span class="wc-year">2025</span>
+                                <span class="wc-link wc-link-dim">soon</span>
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -159,6 +224,27 @@
                 </div>
             </div>
         </section>
+
+        <!-- ===== VISUALIZER MODAL ===== -->
+        <div id="visualizer-modal" class="viz-modal" aria-hidden="true">
+            <div class="viz-header">
+                <span class="viz-title">// project_02 — sound_viz</span>
+                <div class="viz-controls">
+                    <button class="viz-btn" id="viz-mode-btn">[ freq ]</button>
+                    <button class="viz-btn" id="viz-demo-btn">[ demo ]</button>
+                    <div class="viz-gain-wrap">
+                        <label class="viz-gain-label" for="viz-gain">gain</label>
+                        <input type="range" id="viz-gain" min="1" max="8" step="0.2" value="3" />
+                    </div>
+                    <button class="viz-btn viz-btn-close" id="viz-close-btn">[ esc ]</button>
+                </div>
+            </div>
+            <canvas id="viz-canvas"></canvas>
+            <div class="viz-footer">
+                <span id="viz-status">[ click canvas or [ demo ] to start ]</span>
+                <span class="viz-mode-display" id="viz-mode-label">FREQ</span>
+            </div>
+        </div>
 
         <!-- ===== FOOTER ===== -->
         <footer class="footer">
