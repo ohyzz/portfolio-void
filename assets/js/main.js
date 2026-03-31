@@ -7,8 +7,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initNav();
   initReveal();
   initGameLoader();
+  initVisualizerLoader();
   initHorror();
   initHeroGlitch();
+  initWorkPreviews();
+  initNavActiveState();
 });
 
 /* --------------------------------------------------
@@ -115,7 +118,34 @@ function initGameLoader() {
 }
 
 /* --------------------------------------------------
-   5. HERO GLITCH — постоянная смена фраз заголовка
+   5. VISUALIZER LOADER
+   -------------------------------------------------- */
+function initVisualizerLoader() {
+  const link = document.getElementById('open-visualizer');
+  if (!link) return;
+
+  let loaded = false;
+
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    if (loaded) {
+      if (typeof window.openVisualizer === 'function') window.openVisualizer();
+      return;
+    }
+
+    const script  = document.createElement('script');
+    script.src    = 'assets/js/visualizer.js';
+    script.onload = () => {
+      loaded = true;
+      if (typeof window.openVisualizer === 'function') window.openVisualizer();
+    };
+    document.body.appendChild(script);
+  });
+}
+
+/* --------------------------------------------------
+   6. HERO GLITCH — постоянная смена фраз заголовка
    -------------------------------------------------- */
 function initHeroGlitch() {
   const spans = document.querySelectorAll('.hero-title .glitch');
@@ -365,4 +395,152 @@ function initHorror() {
       }
     });
   }
+}
+
+/* --------------------------------------------------
+   7. LIVE CANVAS PREVIEWS для карточек work
+   -------------------------------------------------- */
+function initWorkPreviews() {
+
+  /* --- превью 01: глитч-генератор --- */
+  const c1 = document.getElementById('mini-canvas-01');
+  const card1 = c1 && c1.closest('.wc');
+  if (c1 && card1) {
+    let raf1 = null;
+    const ctx1 = c1.getContext('2d');
+
+    function resizeC1() {
+      c1.width  = c1.offsetWidth;
+      c1.height = c1.offsetHeight;
+    }
+
+    function drawGlitch() {
+      const w = c1.width, h = c1.height;
+      ctx1.fillStyle = '#050202';
+      ctx1.fillRect(0, 0, w, h);
+
+      // Цветные горизонтальные полосы-разрывы
+      const bands = 6 + Math.floor(Math.random() * 8);
+      for (let i = 0; i < bands; i++) {
+        const y   = Math.random() * h;
+        const bh  = 1 + Math.random() * 12;
+        const off = (Math.random() - 0.5) * 30;
+        const r   = Math.floor(Math.random() * 180);
+        const g   = 0;
+        const b   = 0;
+        ctx1.fillStyle = `rgba(${r},${g},${b},${0.4 + Math.random()*0.5})`;
+        ctx1.fillRect(off, y, w, bh);
+      }
+
+      // RGB-смещение
+      for (let i = 0; i < 3; i++) {
+        const y  = Math.random() * h;
+        const bh = Math.random() * 20;
+        ctx1.fillStyle = `rgba(200,0,0,0.15)`;
+        ctx1.fillRect(-5, y, w, bh);
+        ctx1.fillStyle = `rgba(0,0,180,0.1)`;
+        ctx1.fillRect(5, y + 2, w, bh);
+      }
+
+      // Шум-пиксели
+      for (let i = 0; i < 120; i++) {
+        const px = Math.random() * w;
+        const py = Math.random() * h;
+        const v  = Math.floor(Math.random() * 180);
+        ctx1.fillStyle = `rgb(${v},0,0)`;
+        ctx1.fillRect(px, py, 2, 1);
+      }
+
+      raf1 = requestAnimationFrame(drawGlitch);
+    }
+
+    card1.addEventListener('mouseenter', () => {
+      resizeC1();
+      if (!raf1) drawGlitch();
+    });
+
+    card1.addEventListener('mouseleave', () => {
+      cancelAnimationFrame(raf1);
+      raf1 = null;
+    });
+  }
+
+  /* --- превью 02: sound visualizer --- */
+  const c2 = document.getElementById('mini-canvas-02');
+  const card2 = c2 && c2.closest('.wc');
+  if (c2 && card2) {
+    let raf2 = null;
+    const ctx2 = c2.getContext('2d');
+    let phase = 0;
+
+    function resizeC2() {
+      c2.width  = c2.offsetWidth;
+      c2.height = c2.offsetHeight;
+    }
+
+    function drawViz() {
+      const w = c2.width, h = c2.height;
+      ctx2.fillStyle = 'rgba(5,2,2,0.35)';
+      ctx2.fillRect(0, 0, w, h);
+
+      const bars = 38;
+      const bw   = w / bars;
+
+      for (let i = 0; i < bars; i++) {
+        const t = phase + i * 0.28;
+        const amp = (
+          Math.sin(t * 1.3) * 0.4 +
+          Math.sin(t * 2.1 + 1) * 0.3 +
+          Math.sin(t * 0.7 + 2) * 0.3
+        );
+        const bh = Math.abs(amp) * (h * 0.72) + 2;
+        const intensity = Math.abs(amp);
+        const r = Math.floor(80 + intensity * 150);
+        ctx2.fillStyle = `rgba(${r},0,0,${0.5 + intensity * 0.5})`;
+        ctx2.fillRect(
+          i * bw + 1,
+          (h - bh) / 2,
+          bw - 2,
+          bh
+        );
+      }
+
+      phase += 0.055;
+      raf2 = requestAnimationFrame(drawViz);
+    }
+
+    card2.addEventListener('mouseenter', () => {
+      resizeC2();
+      if (!raf2) drawViz();
+    });
+
+    card2.addEventListener('mouseleave', () => {
+      cancelAnimationFrame(raf2);
+      raf2 = null;
+    });
+  }
+}
+
+/* --------------------------------------------------
+   8. NAV — подсвечивание активного пункта при скролле
+   -------------------------------------------------- */
+function initNavActiveState() {
+  const sections = ['home', 'about', 'work', 'contact', 'void'];
+  const links = document.querySelectorAll('.nav-links a');
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        links.forEach(a => {
+          a.classList.toggle('nav-active', a.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { threshold: 0.4 });
+
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) obs.observe(el);
+  });
 }
