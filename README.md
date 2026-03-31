@@ -1,13 +1,13 @@
 # _void
 
-personal portfolio. dark ui, glitch aesthetics, things that make you feel something.
+личное портфолио. темный пользовательский интерфейс, эстетика саморазрушения, вещи, которые заставляют вас что-то чувствовать.
 
-## projects
+## проекты
 
-- **glitch generator** — canvas art tool that feeds on mouse input
-- **sound visualizer** — audio reactive visuals for dark venues  
-- **the void** — you shouldn't be here
+- **glitch generator** — инструмент для рисования на холсте, который работает с помощью мыши
+- **sound visualizer** — визуальные эффекты, реагирующие на звук, для пещеры
+- **the void** — тебя здесь быть не должно
 
 ## stack
 
-html / css / js — no frameworks, no noise
+html / css / js — никаких фреймворков, никакого шума
