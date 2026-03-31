@@ -32,28 +32,28 @@ function initGame(canvasId) {
      ============================== */
   const texts = {
     low: [
-      '...', '——', 'drift', 'hollow', 'static',
+      '...', '——', 'дрейф', 'пустота', 'шум',
     ],
     mid: [
-      'NOT ALONE', 'DO NOT LOOK', 'YOU OPENED IT',
-      'SHE STAYED', '01001000 01000101 01001100 01010000',
-      'LEAVE', 'BEHIND YOU',
+      'НЕ ОДИН', 'НЕ СМОТРИ', 'ТЫ ЭТО ОТКРЫЛ',
+      'ОНА ОСТАЛАСЬ', '01001000 01000101 01001100 01010000',
+      'УХОДИ', 'ПОЗАДИ ТЕБЯ',
     ],
     high: [
-      'I SEE YOU', 'RUN', 'THE BECOMING',
-      'EVERY DAY IS EXACTLY THE SAME',
-      'NO ONE IS LISTENING',
-      'RUINED', 'ERASED', 'YOU CAUSED THIS',
-      'I AM NOT MY OWN', 'SOMETHING IS WRONG WITH ME',
+      'Я ВИЖУ ТЕБЯ', 'БЕГИ', 'СТАНОВЛЕНИЕ',
+      'КАЖДЫЙ ДЕНЬ АБСОЛЮТНО ОДИНАКОВ',
+      'НИКТО НЕ СЛЫШИТ',
+      'РАЗРУШЕН', 'СТЁРТ', 'ТЫ ЭТО СДЕЛАЛ',
+      'Я НЕ ПРИНАДЛЕЖУ СЕБЕ', 'СО МНОЙ ЧТО-ТО НЕ ТАК',
     ],
     chaos: [
-      'I WANT TO DESTROY SOMETHING BEAUTIFUL',
-      'I AM BECOMING LESS DEFINED',
-      'THE WALLS ARE MOVING CLOSER',
-      'IT CANNOT BE STOPPED NOW',
-      'YOU ARE ALONE IN HERE',
-      'DISSOLVING', 'NOTHING CAN STOP THIS NOW',
-      'THIS IS THE ONLY THING THAT\'S REAL',
+      'Я ХОЧУ УНИЧТОЖИТЬ ЧТО-ТО ПРЕКРАСНОЕ',
+      'Я СТАНОВЛЮСЬ МЕНЕЕ ОПРЕДЕЛЁННЫМ',
+      'СТЕНЫ СДВИГАЮТСЯ БЛИЖЕ',
+      'ЭТО УЖЕ НЕ ОСТАНОВИТЬ',
+      'ТЫ ЗДЕСЬ ОДИН',
+      'РАСТВОРЯЮСЬ', 'НИЧТО ЭТО УЖЕ НЕ ОСТАНОВИТ',
+      'ЭТО ЕДИНСТВЕННОЕ, ЧТО РЕАЛЬНО',
     ],
   };
 

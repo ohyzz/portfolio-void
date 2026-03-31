@@ -4,7 +4,7 @@
 
 /* ---------- FONTS ---------- */
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Space+Grotesk:wght@300;400;700&family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Share+Tech+Mono&display=swap');
 /* ---------- RESET & BASE ---------- */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -12,7 +12,7 @@
   padding: 0;
 }
 
-:root {
+:root { 
   --bg:        #060606;
   --bg-2:      #0b0b0b;
   --bg-3:      #101010;
@@ -23,9 +23,9 @@
   --red:       #7a0000;
   --red-mid:   #4a0000;
   --red-dim:   #200000;
-  --mono:      'Share Tech Mono', monospace;
-  --sans:      'Space Grotesk', sans-serif;
-  --display:   'Bebas Neue', sans-serif;
+  --mono:    'Share Tech Mono', monospace;
+  --sans:    'Space Mono', monospace;
+  --display: 'Bebas Neue', sans-serif;
 }
 
 html {
@@ -100,8 +100,8 @@ body::after {
   background:
     radial-gradient(ellipse at 50% 50%,
       transparent 25%,
-      rgba(0, 0, 0, 0.5) 65%,
-      rgba(0, 0, 0, 0.9) 100%
+      rgba(0, 0, 0, 0.4) 65%,
+      rgba(0, 0, 0, 0.4) 100%
     );
   pointer-events: none;
   z-index: 8990;
@@ -184,19 +184,20 @@ body::before {
   100% { transform: translate(5%, 2%); }
 }
 
-/* ---------- НАВИГАЦИЯ (вертикальная, слева) ---------- */
+/* ---------- НАВИГАЦИЯ (горизонтальная, сверху) ---------- */
 .nav {
   position: fixed;
   top: 0;
   left: 0;
-  bottom: 0;
+  right: 0;
   z-index: 100;
-  width: 54px;
+  height: 54px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  padding: 2rem 0 2rem;
-  border-right: 1px solid #1a0000;
+  justify-content: space-between;
+  padding: 0 2rem;
+  border-bottom: 1px solid #1a0000;
   background: rgba(6, 6, 6, 0.92);
   backdrop-filter: blur(6px);
   transition: border-color 0.3s;
@@ -208,51 +209,43 @@ body::before {
 
 .nav-logo {
   font-family: var(--mono);
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   color: var(--accent);
   letter-spacing: 0.08em;
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  transform: rotate(180deg);
-  margin-bottom: 3rem;
   animation: logo-stutter 18s ease-in-out infinite;
 }
 
 @keyframes logo-stutter {
-  0%, 94%, 100% { transform: rotate(180deg); opacity: 1; }
-  95%  { transform: rotate(180deg) skewX(-3deg) translateX(2px); opacity: 0.7; }
-  96%  { transform: rotate(180deg) skewX(2deg) translateX(-1px); opacity: 1; }
-  97%  { transform: rotate(180deg) skewX(-1deg); opacity: 0.85; }
-  98%  { transform: rotate(180deg); opacity: 1; }
+  0%, 94%, 100% { transform: none; opacity: 1; }
+  95%  { transform: skewX(-3deg) translateX(2px); opacity: 0.7; }
+  96%  { transform: skewX(2deg) translateX(-1px); opacity: 1; }
+  97%  { transform: skewX(-1deg); opacity: 0.85; }
+  98%  { transform: none; opacity: 1; }
 }
 
 .nav-links {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 0;
-  flex: 1;
-  justify-content: center;
 }
 
 .nav-links li {
-  border-top: 1px solid #110000;
+  border-left: 1px solid #110000;
 }
 
 .nav-links li:last-child {
-  border-bottom: 1px solid #110000;
+  border-right: 1px solid #110000;
 }
 
 .nav-links a {
   font-family: var(--mono);
-  font-size: 0.6rem;
-  color: var(--text-dim);
+  font-size: 0.65rem;
+  color: aaaaaa;
   letter-spacing: 0.12em;
   transition: color 0.2s, background 0.2s;
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  transform: rotate(180deg);
   display: block;
-  padding: 1.1rem 0.6rem;
+  padding: 0 1.1rem;
+  line-height: 54px;
   white-space: nowrap;
 }
 
@@ -270,9 +263,9 @@ body::before {
   animation: flicker 3.5s infinite;
 }
 
-/* сдвиг основного контента под боковую nav */
-body > *:not(.nav):not(.cursor):not(.cursor-trail):not(.grain):not(.void-watcher):not(#visualizer-modal) {
-  padding-left: 54px;
+/* сдвиг основного контента под горизонтальный хедер */
+body {
+  padding-top: 54px;
 }
 
 /* ---------- HERO ---------- */
@@ -474,6 +467,7 @@ body > *:not(.nav):not(.cursor):not(.cursor-trail):not(.grain):not(.void-watcher
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
+
 
 /* ---------- СЕКЦИИ ---------- */
 .section {
@@ -1188,3 +1182,4 @@ body > *:not(.nav):not(.cursor):not(.cursor-trail):not(.grain):not(.void-watcher
     gap: 0.5rem;
   }
 }
+

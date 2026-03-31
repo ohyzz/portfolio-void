@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>// project_02 — sound_viz</title>
+        <link rel="stylesheet" href="assets/css/project02.css" />
+    </head>
+    <body>
+        <div id="cursor"></div>
+        <div id="cursor-trail"></div>
+
+        <div id="viz-header">
+            <a href="index.html" class="viz-back">[ ← back ]</a>
+            <span class="viz-title">// project_02 — sound_viz</span>
+            <div class="viz-controls">
+                <button id="viz-mode-btn">[ freq ]</button>
+                <button id="viz-demo-btn">[ demo ]</button>
+                <div class="viz-gain-wrap">
+                    <label class="viz-gain-label" for="viz-gain">gain</label>
+                    <input type="range" id="viz-gain" min="1" max="8" step="0.2" value="3" />
+                </div>
+            </div>
+        </div>
+
+        <canvas id="viz-canvas"></canvas>
+
+        <div id="viz-footer">
+            <span id="viz-status">[ click canvas or [ demo ] to start ]</span>
+            <span id="viz-mode-label">FREQ</span>
+        </div>
+
+        <script src="assets/js/visualizer.js"></script>
+    </body>
+</html>
