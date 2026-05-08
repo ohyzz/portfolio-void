@@ -2,7 +2,7 @@
    VOID.WORKS — Main JS
    ============================================ */
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   initTheme();
   initCursor();
   initNav();
@@ -52,28 +52,28 @@ function initTheme() {
    1. КАСТОМНЫЙ КУРСОР
    -------------------------------------------------- */
 function initCursor() {
-  const cursor = document.getElementById('cursor');
-  const trail  = document.getElementById('cursor-trail');
+  const cursor = document.getElementById("cursor");
+  const trail = document.getElementById("cursor-trail");
 
   if (!cursor || !trail) return;
 
-  document.addEventListener('mousemove', (e) => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top  = e.clientY + 'px';
-    trail.style.left  = e.clientX + 'px';
-    trail.style.top   = e.clientY + 'px';
+  document.addEventListener("mousemove", (e) => {
+    cursor.style.left = e.clientX + "px";
+    cursor.style.top = e.clientY + "px";
+    trail.style.left = e.clientX + "px";
+    trail.style.top = e.clientY + "px";
   });
 
-  document.addEventListener('mousedown', () => cursor.classList.add('active'));
-  document.addEventListener('mouseup',   () => cursor.classList.remove('active'));
+  document.addEventListener("mousedown", () => cursor.classList.add("active"));
+  document.addEventListener("mouseup", () => cursor.classList.remove("active"));
 
-  document.addEventListener('mouseleave', () => {
-    cursor.style.opacity = '0';
-    trail.style.opacity  = '0';
+  document.addEventListener("mouseleave", () => {
+    cursor.style.opacity = "0";
+    trail.style.opacity = "0";
   });
-  document.addEventListener('mouseenter', () => {
-    cursor.style.opacity = '1';
-    trail.style.opacity  = '1';
+  document.addEventListener("mouseenter", () => {
+    cursor.style.opacity = "1";
+    trail.style.opacity = "1";
   });
 }
 
@@ -81,12 +81,25 @@ function initCursor() {
    2. НАВИГАЦИЯ — появляется при скролле
    -------------------------------------------------- */
 function initNav() {
-  const nav = document.querySelector('.nav');
+  const nav = document.querySelector(".nav");
+  const burger = document.getElementById("nav-burger");
   if (!nav) return;
 
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 60);
-  }, { passive: true });
+  window.addEventListener(
+    "scroll",
+    () => {
+      nav.classList.toggle("scrolled", window.scrollY > 60);
+    },
+    { passive: true },
+  );
+
+  if (burger) {
+    burger.addEventListener("click", () => nav.classList.toggle("open"));
+
+    nav.querySelectorAll(".nav-links a").forEach((a) => {
+      a.addEventListener("click", () => nav.classList.remove("open"));
+    });
+  }
 }
 
 /* --------------------------------------------------
@@ -94,57 +107,60 @@ function initNav() {
    -------------------------------------------------- */
 function initReveal() {
   const targets = document.querySelectorAll(
-    '.section-title, .about-grid, .work-card, .contact-text, .void-text, .game-wrapper'
+    ".section-title, .about-grid, .work-card, .contact-text, .void-text, .game-wrapper",
   );
 
-  targets.forEach(el => el.classList.add('reveal'));
+  targets.forEach((el) => el.classList.add("reveal"));
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 },
+  );
 
-  targets.forEach(el => observer.observe(el));
+  targets.forEach((el) => observer.observe(el));
 }
 
 /* --------------------------------------------------
    4. ДИНАМИЧЕСКАЯ ЗАГРУЗКА ИГРЫ
    -------------------------------------------------- */
 function initGameLoader() {
-  const btn    = document.getElementById('btn-play');
-  const canvas = document.getElementById('game-canvas');
-  const hint   = document.getElementById('game-hint');
+  const btn = document.getElementById("btn-play");
+  const canvas = document.getElementById("game-canvas");
+  const hint = document.getElementById("game-hint");
 
   if (!btn) return;
 
   let gameLoaded = false;
 
-  btn.addEventListener('click', () => {
+  btn.addEventListener("click", () => {
     if (gameLoaded) return;
     gameLoaded = true;
 
-    btn.textContent = '[ loading... ]';
+    btn.textContent = "[ loading... ]";
     btn.disabled = true;
 
-    const script  = document.createElement('script');
-    script.src    = 'assets/js/game.js';
+    const script = document.createElement("script");
+    script.src = "assets/js/game.js";
 
     script.onload = () => {
-      btn.style.display = 'none';
-      canvas.classList.add('visible');
-      if (hint) hint.classList.add('visible');
+      btn.style.display = "none";
+      canvas.classList.add("visible");
+      if (hint) hint.classList.add("visible");
 
-      if (typeof initGame === 'function') initGame('game-canvas');
+      if (typeof initGame === "function") initGame("game-canvas");
     };
 
     script.onerror = () => {
-      btn.textContent = '[ error — try again ]';
-      btn.disabled    = false;
-      gameLoaded      = false;
+      btn.textContent = "[ error — try again ]";
+      btn.disabled = false;
+      gameLoaded = false;
     };
 
     document.body.appendChild(script);
@@ -155,24 +171,24 @@ function initGameLoader() {
    5. VISUALIZER LOADER
    -------------------------------------------------- */
 function initVisualizerLoader() {
-  const link = document.getElementById('open-visualizer');
+  const link = document.getElementById("open-visualizer");
   if (!link) return;
 
   let loaded = false;
 
-  link.addEventListener('click', (e) => {
+  link.addEventListener("click", (e) => {
     e.preventDefault();
 
     if (loaded) {
-      if (typeof window.openVisualizer === 'function') window.openVisualizer();
+      if (typeof window.openVisualizer === "function") window.openVisualizer();
       return;
     }
 
-    const script  = document.createElement('script');
-    script.src    = 'assets/js/visualizer.js';
+    const script = document.createElement("script");
+    script.src = "assets/js/visualizer.js";
     script.onload = () => {
       loaded = true;
-      if (typeof window.openVisualizer === 'function') window.openVisualizer();
+      if (typeof window.openVisualizer === "function") window.openVisualizer();
     };
     document.body.appendChild(script);
   });
@@ -182,36 +198,36 @@ function initVisualizerLoader() {
    6. HERO GLITCH — постоянная смена фраз заголовка
    -------------------------------------------------- */
 function initHeroGlitch() {
-  const spans = document.querySelectorAll('.hero-title .glitch');
+  const spans = document.querySelectorAll(".hero-title .glitch");
   if (spans.length < 2) return;
 
   const phrases = [
-    ['НИЧТО',      'НЕ РЕАЛЬНО'],
-    ['Я',           'СТЁРТ'],
-    ['ТЫ НЕ',       'ОДИН'],
-    ['СТЕНЫ',       'СДВИГАЮТСЯ'],
-    ['КАЖДЫЙ ДЕНЬ', 'ОДИНАКОВ'],
-    ['ОТВЕРНИСЬ',   ''],
-    ['РАСТВОРЯЮСЬ', 'МЕДЛЕННО'],
-    ['ОНО',         'УЖЕ ВИДИТ ТЕБЯ'],
-    ['НЕТ',         'ВЫХОДА'],
-    ['СТАНОВЛЕНИЕ', ''],
-    ['ТЫ ЭТО',      'СДЕЛАЛ'],
-    ['Я НЕ МОГУ',   'ЭТО ОСТАНОВИТЬ'],
-    ['СИГНАЛ',      'ПОТЕРЯН'],
-    ['ВСЁ ЕЩЁ',     'ЗДЕСЬ'],
-    ['ПОЗАДИ',      'ТЕБЯ'],
-    ['НИЧЕГО',      'НЕ ОСТАНОВИТ МЕНЯ'],
-    ['НИЧТО',      'НЕ РЕАЛЬНО'],
+    ["НИЧТО", "НЕ РЕАЛЬНО"],
+    ["Я", "СТЁРТ"],
+    ["ТЫ НЕ", "ОДИН"],
+    ["СТЕНЫ", "СДВИГАЮТСЯ"],
+    ["КАЖДЫЙ ДЕНЬ", "ОДИНАКОВ"],
+    ["ОТВЕРНИСЬ", ""],
+    ["РАСТВОРЯЮСЬ", "МЕДЛЕННО"],
+    ["ОНО", "УЖЕ ВИДИТ ТЕБЯ"],
+    ["НЕТ", "ВЫХОДА"],
+    ["СТАНОВЛЕНИЕ", ""],
+    ["ТЫ ЭТО", "СДЕЛАЛ"],
+    ["Я НЕ МОГУ", "ЭТО ОСТАНОВИТЬ"],
+    ["СИГНАЛ", "ПОТЕРЯН"],
+    ["ВСЁ ЕЩЁ", "ЗДЕСЬ"],
+    ["ПОЗАДИ", "ТЕБЯ"],
+    ["НИЧЕГО", "НЕ ОСТАНОВИТ МЕНЯ"],
+    ["НИЧТО", "НЕ РЕАЛЬНО"],
   ];
 
   let idx = 0;
 
   function setPhrase(line1, line2) {
     spans[0].textContent = line1;
-    spans[0].setAttribute('data-text', line1);
+    spans[0].setAttribute("data-text", line1);
     spans[1].textContent = line2;
-    spans[1].setAttribute('data-text', line2);
+    spans[1].setAttribute("data-text", line2);
   }
 
   function next() {
@@ -219,20 +235,20 @@ function initHeroGlitch() {
     const [line1, line2] = phrases[idx];
 
     // Краткое гашение — текст "умирает"
-    spans[0].style.transition = 'opacity 0.08s';
-    spans[1].style.transition = 'opacity 0.08s';
-    spans[0].style.opacity = '0';
-    spans[1].style.opacity = '0';
+    spans[0].style.transition = "opacity 0.08s";
+    spans[1].style.transition = "opacity 0.08s";
+    spans[0].style.opacity = "0";
+    spans[1].style.opacity = "0";
 
     setTimeout(() => {
       setPhrase(line1, line2);
-      spans[0].style.opacity = '1';
-      spans[1].style.opacity = '1';
+      spans[0].style.opacity = "1";
+      spans[1].style.opacity = "1";
     }, 90);
 
     // "NOTHING IS REAL" держится дольше остальных
-    const isHome = line1 === 'NOTHING' && line2 === 'IS REAL';
-    const delay  = isHome
+    const isHome = line1 === "NOTHING" && line2 === "IS REAL";
+    const delay = isHome
       ? 4000 + Math.random() * 3000
       : 1800 + Math.random() * 2200;
 
@@ -246,66 +262,71 @@ function initHeroGlitch() {
    6. HORROR — психологический распад страницы
    -------------------------------------------------- */
 function initHorror() {
-
   /* ---- Оверлей вспышки ---- */
-  const flash = document.createElement('div');
+  const flash = document.createElement("div");
   flash.style.cssText = [
-    'position:fixed', 'inset:0',
-    'background:rgba(60,0,0,0)',
-    'pointer-events:none',
-    'z-index:9990',
-    'transition:background 0.07s ease-out',
-  ].join(';');
+    "position:fixed",
+    "inset:0",
+    "background:rgba(60,0,0,0)",
+    "pointer-events:none",
+    "z-index:9990",
+    "transition:background 0.07s ease-out",
+  ].join(";");
   document.body.appendChild(flash);
 
   function redFlash(intensity) {
     intensity = intensity || 0.18;
     flash.style.background = `rgba(60,0,0,${intensity})`;
-    setTimeout(() => { flash.style.background = 'rgba(60,0,0,0)'; }, 100);
+    setTimeout(() => {
+      flash.style.background = "rgba(60,0,0,0)";
+    }, 100);
   }
 
   /* ---- Тряска страницы ---- */
   function shakeScreen() {
-    document.documentElement.classList.add('is-shaking');
-    setTimeout(() => document.documentElement.classList.remove('is-shaking'), 500);
+    document.documentElement.classList.add("is-shaking");
+    setTimeout(
+      () => document.documentElement.classList.remove("is-shaking"),
+      500,
+    );
   }
 
   /* ---- Постоянная смена заголовка вкладки ---- */
   const titleSequence = [
-    '// VOID.WORKS',
-    '// СИГНАЛ ПОТЕРЯН',
-    '// VOID.WORKS',
-    '// ТЫ ВСЁ ЕЩЁ ЗДЕСЬ',
-    '// VOID.WORKS',
-    '// VOID.WORKS',
-    '// ОНО НАШЛО ТЕБЯ',
-    '// VOID.WORKS',
-    '// РАСТВОРЯЮСЬ',
-    '// VOID.WORKS',
-    '// VOID.WORKS',
-    '// ОШИБКА: ВЫХОДА НЕТ',
-    '// VOID.WORKS',
-    '// СТАНОВЛЕНИЕ',
-    '// VOID.WORKS',
-    '// VOID.WORKS',
-    '// Я НЕ ПРИНАДЛЕЖУ СЕБЕ',
-    '// VOID.WORKS',
-    '// КАЖДЫЙ ДЕНЬ АБСОЛЮТНО ОДИНАКОВ',
-    '// VOID.WORKS',
-    '// VOID.WORKS',
-    '// ПОЗАДИ ТЕБЯ',
-    '// VOID.WORKS',
-    '// ТЫ ЭТО СДЕЛАЛ',
-    '// VOID.WORKS',
-    '// VOID.WORKS',
-    '// НЕ ОДИН',
-    '// VOID.WORKS',
-    '// Я ХОЧУ УНИЧТОЖИТЬ ЧТО-ТО ПРЕКРАСНОЕ',
-    '// VOID.WORKS',
-    '// VOID.WORKS',
-    '// VOID.WORKS',
-    '// БЕГИ',
-    '// VOID.WORKS',
+    "// OHYZ.WORKS",
+    "// СИГНАЛ ПОТЕРЯН",
+    "// OHYZ.WORKS",
+    "// ТЫ ВСЁ ЕЩЁ ЗДЕСЬ",
+    "// OHYZ.WORKS",
+    "// OHYZ.WORKS",
+    "// ОНО НАШЛО ТЕБЯ",
+    "// OHYZ.WORKS",
+    "// РАСТВОРЯЮСЬ",
+    "// OHYZ.WORKS",
+    "// OHYZ.WORKS",
+    "// ОШИБКА: ВЫХОДА НЕТ",
+    "// OHYZ.WORKS",
+    "// СТАНОВЛЕНИЕ",
+    "// OHYZ.WORKS",
+    "// OHYZ.WORKS",
+    "// Я НЕ ПРИНАДЛЕЖУ СЕБЕ",
+    "// OHYZ.WORKS",
+    "// КАЖДЫЙ ДЕНЬ АБСОЛЮТНО ОДИНАКОВ",
+    "// OHYZ.WORKS",
+    "// OHYZ.WORKS",
+    "// ПОЗАДИ ТЕБЯ",
+    "// OHYZ.WORKS",
+    "// ТЫ ЭТО СДЕЛАЛ",
+    "// OHYZ.WORKS",
+    "// OHYZ.WORKS",
+    "// НЕ ОДИН",
+    "// OHYZ.WORKS",
+    "// Я ХОЧУ УНИЧТОЖИТЬ ЧТО-ТО ПРЕКРАСНОЕ",
+    "// OHYZ.WORKS",
+    "// OHYZ.WORKS",
+    "// OHYZ.WORKS",
+    "// БЕГИ",
+    "// OHYZ.WORKS",
   ];
 
   let titleIdx = 0;
@@ -320,10 +341,10 @@ function initHorror() {
 
     // Держим "нормальный" заголовок дольше, жуткие — кратко
     const current = titleSequence[titleIdx];
-    const isNormal = current === '// VOID.WORKS';
+    const isNormal = current === "// VOID.WORKS";
     const delay = isNormal
       ? 2200 + Math.random() * 2000
-      :  600 + Math.random() * 900;
+      : 600 + Math.random() * 900;
 
     setTimeout(tickTitle, delay);
   }
@@ -332,19 +353,21 @@ function initHorror() {
   setTimeout(tickTitle, 3000 + Math.random() * 4000);
 
   /* ---- Коррупция текста на странице ---- */
-  const textTargets = Array.from(document.querySelectorAll('.about-text p, .contact-text, .hero-sub'));
-  const originals   = textTargets.map(el => el.innerHTML);
+  const textTargets = Array.from(
+    document.querySelectorAll(".about-text p, .contact-text, .hero-sub"),
+  );
+  const originals = textTargets.map((el) => el.innerHTML);
 
   const corrupted = [
-    'что-то наблюдает за тобой прямо сейчас.',
-    'ты никогда не должен был это найти.',
-    'я всё ещё здесь.&nbsp;&nbsp;я никогда не уходил.',
-    'это началось задолго до твоего появления.',
-    'каждый день абсолютно одинаков.',
-    'ты это сделал.',
-    'стены&nbsp;&nbsp;двигаются.',
-    'чистой версии этого не существует.',
-    'я хочу уничтожить что-то прекрасное.',
+    "что-то наблюдает за тобой прямо сейчас.",
+    "ты никогда не должен был это найти.",
+    "я всё ещё здесь.&nbsp;&nbsp;я никогда не уходил.",
+    "это началось задолго до твоего появления.",
+    "каждый день абсолютно одинаков.",
+    "ты это сделал.",
+    "стены&nbsp;&nbsp;двигаются.",
+    "чистой версии этого не существует.",
+    "я хочу уничтожить что-то прекрасное.",
   ];
 
   let isCorrupted = false;
@@ -354,40 +377,43 @@ function initHorror() {
     isCorrupted = true;
 
     const idx = Math.floor(Math.random() * textTargets.length);
-    const el  = textTargets[idx];
+    const el = textTargets[idx];
 
-    el.style.transition = 'opacity 0.25s, color 0.25s';
-    el.style.opacity    = '0.15';
+    el.style.transition = "opacity 0.25s, color 0.25s";
+    el.style.opacity = "0.15";
 
     setTimeout(() => {
-      el.innerHTML   = corrupted[Math.floor(Math.random() * corrupted.length)];
-      el.style.color = 'rgba(150, 70, 70, 0.65)';
-      el.style.opacity = '1';
+      el.innerHTML = corrupted[Math.floor(Math.random() * corrupted.length)];
+      el.style.color = "rgba(150, 70, 70, 0.65)";
+      el.style.opacity = "1";
     }, 250);
 
     const holdDur = 2000 + Math.random() * 1800;
     setTimeout(() => {
-      el.style.opacity = '0.15';
+      el.style.opacity = "0.15";
       setTimeout(() => {
-        el.innerHTML   = originals[idx];
-        el.style.color = '';
-        el.style.opacity = '1';
-        isCorrupted    = false;
+        el.innerHTML = originals[idx];
+        el.style.color = "";
+        el.style.opacity = "1";
+        isCorrupted = false;
       }, 250);
     }, holdDur);
   }
 
   /* ---- Курсор-лаг ---- */
-  const trail = document.getElementById('cursor-trail');
+  const trail = document.getElementById("cursor-trail");
   function cursorGlitch() {
     if (!trail) return;
     // кратковременный красный курсор
-    trail.style.borderColor = 'rgba(120,0,0,0.5)';
-    trail.style.transform   = `translate(-50%, -50%) scale(${1.5 + Math.random()})`;
-    setTimeout(() => {
-      trail.style.borderColor = '';
-      trail.style.transform   = '';
-    }, 200 + Math.random() * 150);
+    trail.style.borderColor = "rgba(120,0,0,0.5)";
+    trail.style.transform = `translate(-50%, -50%) scale(${1.5 + Math.random()})`;
+    setTimeout(
+      () => {
+        trail.style.borderColor = "";
+        trail.style.transform = "";
+      },
+      200 + Math.random() * 150,
+    );
   }
 
   /* ---- Планировщик ---- */
@@ -400,23 +426,26 @@ function initHorror() {
     setTimeout(run, (minSec + Math.random() * (maxSec - minSec)) * 1000);
   }
 
-  sched(redFlash,    7,   18);
-  sched(shakeScreen, 30,  75);
-  sched(corruptText,  25,  60);
-  sched(cursorGlitch,  8,  20);
+  sched(redFlash, 7, 18);
+  sched(shakeScreen, 30, 75);
+  sched(corruptText, 25, 60);
+  sched(cursorGlitch, 8, 20);
 
   /* ---- Эскалация при долгом пребывании ---- */
   // Чем дольше пользователь на сайте, тем чаще вспышки
-  setTimeout(() => {
-    sched(redFlash,    4,  10);
-    sched(shakeScreen, 20, 50);
-  }, 3 * 60 * 1000); // через 3 минуты
+  setTimeout(
+    () => {
+      sched(redFlash, 4, 10);
+      sched(shakeScreen, 20, 50);
+    },
+    3 * 60 * 1000,
+  ); // через 3 минуты
 
   /* ---- Секретный Konami-like триггер: 5 кликов по логотипу ---- */
-  const logo = document.querySelector('.nav-logo');
+  const logo = document.querySelector(".nav-logo");
   if (logo) {
     let clickCount = 0;
-    logo.addEventListener('click', () => {
+    logo.addEventListener("click", () => {
       clickCount++;
       if (clickCount >= 5) {
         clickCount = 0;
@@ -424,7 +453,10 @@ function initHorror() {
         redFlash(0.35);
         shakeScreen();
         setTimeout(() => redFlash(0.25), 150);
-        setTimeout(() => { redFlash(0.4); shakeScreen(); }, 350);
+        setTimeout(() => {
+          redFlash(0.4);
+          shakeScreen();
+        }, 350);
         setTimeout(() => corruptText(), 600);
         corruptTitle();
       }
@@ -436,40 +468,40 @@ function initHorror() {
    7. LIVE CANVAS PREVIEWS для карточек work
    -------------------------------------------------- */
 function initWorkPreviews() {
-
   /* --- превью 01: глитч-генератор --- */
-  const c1 = document.getElementById('mini-canvas-01');
-  const card1 = c1 && c1.closest('.wc');
+  const c1 = document.getElementById("mini-canvas-01");
+  const card1 = c1 && c1.closest(".wc");
   if (c1 && card1) {
     let raf1 = null;
-    const ctx1 = c1.getContext('2d');
+    const ctx1 = c1.getContext("2d");
 
     function resizeC1() {
-      c1.width  = c1.offsetWidth;
+      c1.width = c1.offsetWidth;
       c1.height = c1.offsetHeight;
     }
 
     function drawGlitch() {
-      const w = c1.width, h = c1.height;
-      ctx1.fillStyle = '#050202';
+      const w = c1.width,
+        h = c1.height;
+      ctx1.fillStyle = "#050202";
       ctx1.fillRect(0, 0, w, h);
 
       // Цветные горизонтальные полосы-разрывы
       const bands = 6 + Math.floor(Math.random() * 8);
       for (let i = 0; i < bands; i++) {
-        const y   = Math.random() * h;
-        const bh  = 1 + Math.random() * 12;
+        const y = Math.random() * h;
+        const bh = 1 + Math.random() * 12;
         const off = (Math.random() - 0.5) * 30;
-        const r   = Math.floor(Math.random() * 180);
-        const g   = 0;
-        const b   = 0;
-        ctx1.fillStyle = `rgba(${r},${g},${b},${0.4 + Math.random()*0.5})`;
+        const r = Math.floor(Math.random() * 180);
+        const g = 0;
+        const b = 0;
+        ctx1.fillStyle = `rgba(${r},${g},${b},${0.4 + Math.random() * 0.5})`;
         ctx1.fillRect(off, y, w, bh);
       }
 
       // RGB-смещение
       for (let i = 0; i < 3; i++) {
-        const y  = Math.random() * h;
+        const y = Math.random() * h;
         const bh = Math.random() * 20;
         ctx1.fillStyle = `rgba(200,0,0,0.15)`;
         ctx1.fillRect(-5, y, w, bh);
@@ -481,7 +513,7 @@ function initWorkPreviews() {
       for (let i = 0; i < 120; i++) {
         const px = Math.random() * w;
         const py = Math.random() * h;
-        const v  = Math.floor(Math.random() * 180);
+        const v = Math.floor(Math.random() * 180);
         ctx1.fillStyle = `rgb(${v},0,0)`;
         ctx1.fillRect(px, py, 2, 1);
       }
@@ -489,69 +521,129 @@ function initWorkPreviews() {
       raf1 = requestAnimationFrame(drawGlitch);
     }
 
-    card1.addEventListener('mouseenter', () => {
+    card1.addEventListener("mouseenter", () => {
       resizeC1();
       if (!raf1) drawGlitch();
     });
 
-    card1.addEventListener('mouseleave', () => {
+    card1.addEventListener("mouseleave", () => {
       cancelAnimationFrame(raf1);
       raf1 = null;
     });
   }
 
   /* --- превью 02: sound visualizer --- */
-  const c2 = document.getElementById('mini-canvas-02');
-  const card2 = c2 && c2.closest('.wc');
+  const c2 = document.getElementById("mini-canvas-02");
+  const card2 = c2 && c2.closest(".wc");
   if (c2 && card2) {
     let raf2 = null;
-    const ctx2 = c2.getContext('2d');
+    const ctx2 = c2.getContext("2d");
     let phase = 0;
 
     function resizeC2() {
-      c2.width  = c2.offsetWidth;
+      c2.width = c2.offsetWidth;
       c2.height = c2.offsetHeight;
     }
 
     function drawViz() {
-      const w = c2.width, h = c2.height;
-      ctx2.fillStyle = 'rgba(5,2,2,0.35)';
+      const w = c2.width,
+        h = c2.height;
+      ctx2.fillStyle = "rgba(5,2,2,0.35)";
       ctx2.fillRect(0, 0, w, h);
 
       const bars = 38;
-      const bw   = w / bars;
+      const bw = w / bars;
 
       for (let i = 0; i < bars; i++) {
         const t = phase + i * 0.28;
-        const amp = (
+        const amp =
           Math.sin(t * 1.3) * 0.4 +
           Math.sin(t * 2.1 + 1) * 0.3 +
-          Math.sin(t * 0.7 + 2) * 0.3
-        );
+          Math.sin(t * 0.7 + 2) * 0.3;
         const bh = Math.abs(amp) * (h * 0.72) + 2;
         const intensity = Math.abs(amp);
         const r = Math.floor(80 + intensity * 150);
         ctx2.fillStyle = `rgba(${r},0,0,${0.5 + intensity * 0.5})`;
-        ctx2.fillRect(
-          i * bw + 1,
-          (h - bh) / 2,
-          bw - 2,
-          bh
-        );
+        ctx2.fillRect(i * bw + 1, (h - bh) / 2, bw - 2, bh);
       }
 
       phase += 0.055;
       raf2 = requestAnimationFrame(drawViz);
     }
 
-    card2.addEventListener('mouseenter', () => {
+    card2.addEventListener("mouseenter", () => {
       resizeC2();
       if (!raf2) drawViz();
     });
 
-    card2.addEventListener('mouseleave', () => {
+    card2.addEventListener("mouseleave", () => {
       cancelAnimationFrame(raf2);
       raf2 = null;
+    });
+  }
+
+  /* --- превью 03: noise cli --- */
+  const c3 = document.getElementById("mini-canvas-03");
+  const card3 = c3 && c3.closest(".wc");
+  if (c3 && card3) {
+    let raf3 = null;
+    const ctx3 = c3.getContext("2d");
+    let t3 = 0;
+
+    function resizeC3() {
+      c3.width  = c3.offsetWidth;
+      c3.height = c3.offsetHeight;
+    }
+
+    function hash3(ix, iy, seed) {
+      let h = ((seed ^ Math.imul(ix, 374761393)) ^ Math.imul(iy, 668265263)) | 0;
+      h = Math.imul(h ^ (h >>> 13), 1274126177);
+      return ((h ^ (h >>> 16)) >>> 0) / 0x100000000;
+    }
+
+    function smooth3(t) { return t * t * (3 - 2 * t); }
+
+    function vNoise3(x, y, seed) {
+      const ix = Math.floor(x), iy = Math.floor(y);
+      const ux = smooth3(x - ix), uy = smooth3(y - iy);
+      const a = hash3(ix,   iy,   seed) * (1 - ux) + hash3(ix+1, iy,   seed) * ux;
+      const b = hash3(ix,   iy+1, seed) * (1 - ux) + hash3(ix+1, iy+1, seed) * ux;
+      return a * (1 - uy) + b * uy;
+    }
+
+    function drawNoisePrev() {
+      const w = c3.width, h = c3.height;
+      const cell = 5;
+      const cols = Math.ceil(w / cell);
+      const rows = Math.ceil(h / cell);
+      const seed = Math.floor(t3 * 0.3) % 9999;
+
+      ctx3.fillStyle = "#020402";
+      ctx3.fillRect(0, 0, w, h);
+
+      for (let gy = 0; gy < rows; gy++) {
+        for (let gx = 0; gx < cols; gx++) {
+          const nx = (gx / cols) * 4 + t3 * 0.015;
+          const ny = (gy / rows) * 4;
+          const v  = vNoise3(nx, ny, seed);
+          const bright = Math.floor(v * v * 90);
+          ctx3.fillStyle = "rgb(0," + bright + ",0)";
+          ctx3.fillRect(gx * cell, gy * cell, cell - 1, cell - 1);
+        }
+      }
+
+      t3 += 0.6;
+      raf3 = requestAnimationFrame(drawNoisePrev);
+    }
+
+    card3.addEventListener("mouseenter", () => {
+      resizeC3();
+      if (!raf3) drawNoisePrev();
+    });
+
+    card3.addEventListener("mouseleave", () => {
+      cancelAnimationFrame(raf3);
+      raf3 = null;
     });
   }
 }
@@ -560,21 +652,27 @@ function initWorkPreviews() {
    8. NAV — подсвечивание активного пункта при скролле
    -------------------------------------------------- */
 function initNavActiveState() {
-  const sections = ['home', 'about', 'work', 'contact', 'void'];
-  const links = document.querySelectorAll('.nav-links a');
+  const sections = ["home", "about", "work", "contact", "void"];
+  const links = document.querySelectorAll(".nav-links a");
 
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.id;
-        links.forEach(a => {
-          a.classList.toggle('nav-active', a.getAttribute('href') === '#' + id);
-        });
-      }
-    });
-  }, { threshold: 0.4 });
+  const obs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          links.forEach((a) => {
+            a.classList.toggle(
+              "nav-active",
+              a.getAttribute("href") === "#" + id,
+            );
+          });
+        }
+      });
+    },
+    { threshold: 0.4 },
+  );
 
-  sections.forEach(id => {
+  sections.forEach((id) => {
     const el = document.getElementById(id);
     if (el) obs.observe(el);
   });

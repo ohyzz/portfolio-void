@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>// project_03 — noise_cli</title>
+        <link rel="stylesheet" href="assets/css/project03.css" />
+    </head>
+    <body>
+        <div id="cursor"></div>
+        <div id="cursor-trail"></div>
+
+        <div id="header">
+            <a href="index.html" class="back-link">[ ← назад ]</a>
+            <span class="header-title">// project_03 — noise_cli</span>
+            <a
+                href="https://github.com/ohyzz/noise-cli"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="github-link"
+            >[ github ↗ ]</a>
+        </div>
+
+        <main id="content">
+
+            <!-- hero -->
+            <section class="hero-block">
+                <div class="hero-left">
+                    <p class="tag">// 003 — инструмент / опен сурс</p>
+                    <h1 class="title">NOISE<br />CLI</h1>
+                    <p class="subtitle">
+                        генератор шумовых ASCII-текстур для терминала.<br />
+                        чистый python 3, без зависимостей.
+                    </p>
+                    <div class="badges">
+                        <span class="badge">python 3.7+</span>
+                        <span class="badge">zero deps</span>
+                        <span class="badge">MIT</span>
+                    </div>
+                </div>
+                <div class="hero-right">
+                    <canvas id="preview-canvas"></canvas>
+                </div>
+            </section>
+
+            <!-- install -->
+            <section class="doc-section">
+                <p class="doc-label">// установка</p>
+                <div class="code-block">
+                    <div class="code-comment"># запустить напрямую</div>
+                    <div class="code-line"><span class="c-prompt">$</span> python noise_cli.py gen perlin <span class="c-flag">--color</span></div>
+                    <div class="code-line code-space"></div>
+                    <div class="code-comment"># установить глобально</div>
+                    <div class="code-line"><span class="c-prompt">$</span> pip install .</div>
+                    <div class="code-line"><span class="c-prompt">$</span> noise gen perlin <span class="c-flag">--color</span></div>
+                </div>
+            </section>
+
+            <!-- usage -->
+            <section class="doc-section">
+                <p class="doc-label">// использование</p>
+                <div class="code-block">
+                    <div class="code-line"><span class="c-cmd">noise</span> <span class="c-sub">gen</span> <span class="c-arg">[type]</span> <span class="c-flag">[options]</span></div>
+                    <div class="code-line code-space"></div>
+                    <div class="code-comment"># типы шума</div>
+                    <div class="code-line"><span class="c-arg">type</span>         perlin | smooth | fractal | cellular | warp | white</div>
+                    <div class="code-line code-space"></div>
+                    <div class="code-comment"># опции</div>
+                    <div class="code-line"><span class="c-flag">-W --width</span>    N     ширина в символах  <span class="c-dim">(default: 80)</span></div>
+                    <div class="code-line"><span class="c-flag">-H --height</span>   N     высота в строках   <span class="c-dim">(default: 40)</span></div>
+                    <div class="code-line"><span class="c-flag">-s --scale</span>    F     масштаб шума       <span class="c-dim">(default: 4.0)</span></div>
+                    <div class="code-line"><span class="c-flag">-p --palette</span>  NAME  символьная палитра <span class="c-dim">(default: void)</span></div>
+                    <div class="code-line"><span class="c-flag">   --seed</span>     N     зерно генератора   <span class="c-dim">(default: random)</span></div>
+                    <div class="code-line"><span class="c-flag">   --color</span>          ANSI-цвет          <span class="c-dim">(зелёный фосфор)</span></div>
+                    <div class="code-line"><span class="c-flag">   --animate</span>        цикличная анимация</div>
+                    <div class="code-line"><span class="c-flag">   --fps</span>     N     кадров/сек         <span class="c-dim">(default: 10)</span></div>
+                    <div class="code-line"><span class="c-flag">-o --output</span>   FILE  сохранить в .txt</div>
+                </div>
+            </section>
+
+            <!-- examples -->
+            <section class="doc-section">
+                <p class="doc-label">// примеры</p>
+                <div class="examples-grid">
+                    <div class="example-item">
+                        <div class="code-block">
+                            <div class="code-line"><span class="c-prompt">$</span> noise gen perlin <span class="c-flag">--color</span></div>
+                        </div>
+                        <p class="example-desc">базовый FBM, 4 октавы</p>
+                    </div>
+                    <div class="example-item">
+                        <div class="code-block">
+                            <div class="code-line"><span class="c-prompt">$</span> noise gen fractal <span class="c-flag">--palette dots --seed 1337 --color</span></div>
+                        </div>
+                        <p class="example-desc">детализированный FBM, 6 октавов</p>
+                    </div>
+                    <div class="example-item">
+                        <div class="code-block">
+                            <div class="code-line"><span class="c-prompt">$</span> noise gen cellular <span class="c-flag">--palette matrix --color</span></div>
+                        </div>
+                        <p class="example-desc">Worley noise — органические ячейки</p>
+                    </div>
+                    <div class="example-item">
+                        <div class="code-block">
+                            <div class="code-line"><span class="c-prompt">$</span> noise gen warp <span class="c-flag">--scale 6 --color</span></div>
+                        </div>
+                        <p class="example-desc">domain warping — закрученные формы</p>
+                    </div>
+                    <div class="example-item">
+                        <div class="code-block">
+                            <div class="code-line"><span class="c-prompt">$</span> noise gen fractal <span class="c-flag">--animate --fps 15 --color</span></div>
+                        </div>
+                        <p class="example-desc">живая анимация шума</p>
+                    </div>
+                    <div class="example-item">
+                        <div class="code-block">
+                            <div class="code-line"><span class="c-prompt">$</span> noise gen perlin <span class="c-flag">-o texture.txt</span></div>
+                        </div>
+                        <p class="example-desc">сохранить в файл</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- palettes -->
+            <section class="doc-section">
+                <p class="doc-label">// палитры</p>
+                <div class="palettes-grid" id="palettes-grid">
+                    <!-- rendered by JS -->
+                </div>
+            </section>
+
+        </main>
+
+        <footer id="footer">
+            <span>noise-cli &copy; 2026 ohyz</span>
+            <span>MIT license</span>
+        </footer>
+
+        <script src="assets/js/project03-preview.js"></script>
+    </body>
+</html>

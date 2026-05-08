@@ -27,6 +27,15 @@ function initGame(canvasId) {
   const imageData = ctx.createImageData(W, H);
   const pixels    = imageData.data;
 
+  /* Масштаб шрифта — компенсируем сжатие канваса на мобиле */
+  let fontScale = 1;
+  function updateFontScale() {
+    const rect = canvas.getBoundingClientRect();
+    fontScale = rect.width > 0 ? W / rect.width : 1;
+  }
+  updateFontScale();
+  window.addEventListener('resize', updateFontScale, { passive: true });
+
   /* ==============================
      БАНК ТЕКСТОВ — NIN / распад
      ============================== */
@@ -71,6 +80,19 @@ function initGame(canvasId) {
     state.targetFreq = (state.mouseX / W) * 100;
   });
   canvas.addEventListener('mouseleave', () => { state.mouseX = null; });
+
+  /* ---- Тач ---- */
+  function handleTouch(e) {
+    e.preventDefault();
+    const rect   = canvas.getBoundingClientRect();
+    const touchX = e.touches[0].clientX - rect.left;
+    const scale  = W / rect.width;
+    state.mouseX     = touchX * scale;
+    state.targetFreq = (state.mouseX / W) * 100;
+  }
+  canvas.addEventListener('touchstart', handleTouch, { passive: false });
+  canvas.addEventListener('touchmove',  handleTouch, { passive: false });
+  canvas.addEventListener('touchend',   () => { state.mouseX = null; });
 
   /* ==============================
      РИСОВАНИЕ: УТИЛИТЫ
@@ -120,7 +142,7 @@ function initGame(canvasId) {
     ctx.fillRect(sliderX - 1, barY + 2, 2, 16);
 
     ctx.fillStyle = '#3a0000';
-    ctx.font      = '10px Share Tech Mono, monospace';
+    ctx.font      = `${Math.round(10 * fontScale)}px Share Tech Mono, monospace`;
     ctx.textAlign = 'right';
     ctx.fillText(freqLabel, W - 20, barY + 22);
   }
@@ -283,12 +305,13 @@ function initGame(canvasId) {
     size = size || 13;
     ctx.save();
     ctx.globalAlpha = alpha;
-    ctx.font        = `${size}px Share Tech Mono, monospace`;
+    ctx.font        = `${Math.round(size * fontScale)}px Share Tech Mono, monospace`;
     ctx.textAlign   = 'center';
     ctx.shadowColor = 'rgba(180,0,0,0.95)';
     ctx.shadowBlur  = 12;
+    const maxW = W - 40;
     ctx.fillStyle   = `rgba(200,170,170,${alpha})`;
-    ctx.fillText(text, x, y);
+    ctx.fillText(text, x, y, maxW);
 
     if (Math.random() > 0.45) {
       ctx.globalAlpha = alpha * 0.4;
@@ -296,7 +319,8 @@ function initGame(canvasId) {
       ctx.fillStyle   = 'rgba(255,0,0,0.9)';
       ctx.fillText(text,
         x + (Math.random() - 0.5) * 8,
-        y + (Math.random() - 0.5) * 5
+        y + (Math.random() - 0.5) * 5,
+        maxW
       );
     }
     ctx.restore();
@@ -468,7 +492,7 @@ function initGame(canvasId) {
       if (textAlpha > 0) {
         ctx.save();
         ctx.globalAlpha = textAlpha * 0.6;
-        ctx.font        = '14px Share Tech Mono, monospace';
+        ctx.font        = `${Math.round(14 * fontScale)}px Share Tech Mono, monospace`;
         ctx.textAlign   = 'center';
         ctx.fillStyle   = 'rgba(200,185,165,1)';
         ctx.shadowColor = 'rgba(180,130,80,0.5)';

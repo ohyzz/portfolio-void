@@ -1,9 +1,49 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>// VOID.WORKS</title>
+        <title>// OHYZ.WORKS</title>
+
+        <!-- SEO -->
+        <meta
+            name="description"
+            content="я разработчик, помешанный на мёртвом визуале. глитч, сбой, тьма. фронтенд, canvas, web audio api."
+        />
+        <meta
+            name="keywords"
+            content="разработчик, фронтенд, глитч, canvas, web audio, portfolio, void, ohyz"
+        />
+        <meta name="author" content="ohyz" />
+        <meta name="robots" content="index, follow" />
+        <meta name="theme-color" content="#060606" />
+        <link rel="canonical" href="https://ohyzz.github.io/portfolio-void/" />
+
+        <!-- Open Graph -->
+        <meta
+            property="og:title"
+            content="// OHYZ.WORKS — фронтенд / глитч / темнота"
+        />
+        <meta
+            property="og:description"
+            content="я разработчик, помешанный на мёртвом визуале. глитч, сбой, тьма."
+        />
+        <meta property="og:type" content="website" />
+        <meta
+            property="og:url"
+            content="https://ohyzz.github.io/portfolio-void/"
+        />
+        <meta property="og:image" content="assets/og.png" />
+        <meta property="og:locale" content="ru_RU" />
+
+        <!-- Twitter / X -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="// OHYZ.WORKS" />
+        <meta
+            name="twitter:description"
+            content="я разработчик, помешанный на мёртвом визуале. глитч, сбой, тьма."
+        />
+        <meta name="twitter:image" content="assets/og.png" />
         <link rel="stylesheet" href="assets/css/styles.css" />
     </head>
     <body>
@@ -15,12 +55,14 @@
         <div class="grain"></div>
 
         <!-- Силуэт наблюдателя, иногда выглядывает из угла -->
-        <div class="void-watcher" aria-hidden="true"></div>
+        <div class="void-watcher" aria-hidden="true">
+            <span class="watcher-eye"></span>
+        </div>
 
         <!-- ===== НАВИГАЦИЯ ===== -->
         <nav class="nav">
             <div class="nav-left">
-                <span class="nav-logo">_void</span>
+                <span class="nav-logo">_ohyz</span>
                 <span class="theme-toggle" id="theme-toggle">/dark</span>
             </div>
             <ul class="nav-links">
@@ -29,6 +71,9 @@
                 <li><a href="#contact">/контакты</a></li>
                 <li><a href="#void" class="nav-secret">/ [ ? ]</a></li>
             </ul>
+            <button class="nav-burger" id="nav-burger" aria-label="меню">
+                <span></span><span></span><span></span>
+            </button>
         </nav>
 
         <!-- ===== HERO ===== -->
@@ -36,8 +81,7 @@
             <div class="hero-content">
                 <p class="hero-label">// *#&@^$@&*$^*!@&%</p>
                 <h1 class="hero-title">
-                    <span class="glitch" data-text="NOTHING">НИЧТО</span
-                    ><br />
+                    <span class="glitch" data-text="NOTHING">НИЧТО</span><br />
                     <span class="glitch" data-text="IS REAL">НЕ РЕАЛЬНО</span>
                 </h1>
                 <p class="hero-sub">я построил это в яме</p>
@@ -46,31 +90,128 @@
 
             <!-- Вращающаяся спираль -->
             <div class="hero-spiral" aria-hidden="true">
-                <svg class="spiral-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                <svg
+                    class="spiral-svg"
+                    viewBox="0 0 300 300"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
                     <defs>
                         <filter id="fuzz">
-                            <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="noise"/>
-                            <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+                            <feTurbulence
+                                type="fractalNoise"
+                                baseFrequency="0.04"
+                                numOctaves="3"
+                                result="noise"
+                            />
+                            <feDisplacementMap
+                                in="SourceGraphic"
+                                in2="noise"
+                                scale="4"
+                                xChannelSelector="R"
+                                yChannelSelector="G"
+                            />
                         </filter>
                     </defs>
-                    <circle cx="150" cy="150" r="140" fill="none" stroke="rgba(139,0,0,0.12)" stroke-width="1"/>
-                    <circle cx="150" cy="150" r="120" fill="none" stroke="rgba(139,0,0,0.18)" stroke-width="0.5"/>
-                    <circle cx="150" cy="150" r="100" fill="none" stroke="rgba(200,184,154,0.06)" stroke-width="1"/>
-                    <circle cx="150" cy="150" r="80"  fill="none" stroke="rgba(139,0,0,0.22)" stroke-width="0.5"/>
-                    <circle cx="150" cy="150" r="60"  fill="none" stroke="rgba(200,184,154,0.08)" stroke-width="1"/>
-                    <circle cx="150" cy="150" r="40"  fill="none" stroke="rgba(139,0,0,0.35)" stroke-width="0.5"/>
-                    <circle cx="150" cy="150" r="20"  fill="none" stroke="rgba(200,184,154,0.15)" stroke-width="1"/>
-                    <circle cx="150" cy="150" r="5"   fill="rgba(139,0,0,0.5)"/>
-                    <line x1="150" y1="10"  x2="150" y2="290" stroke="rgba(139,0,0,0.06)" stroke-width="0.5"/>
-                    <line x1="10"  y1="150" x2="290" y2="150" stroke="rgba(139,0,0,0.06)" stroke-width="0.5"/>
-                    <line x1="51"  y1="51"  x2="249" y2="249" stroke="rgba(139,0,0,0.04)" stroke-width="0.5"/>
-                    <line x1="249" y1="51"  x2="51"  y2="249" stroke="rgba(139,0,0,0.04)" stroke-width="0.5"/>
-                    <path d="M150,150 Q170,130 160,110 Q148,88 128,98 Q105,110 115,133 Q126,158 152,162 Q180,165 194,143 Q210,118 196,92 Q180,63 150,58 Q116,53 96,75 Q73,100 80,135 Q88,172 120,188 Q155,204 190,192"
-                          fill="none" stroke="rgba(212,82,58,0.4)" stroke-width="1.5" filter="url(#fuzz)"/>
+                    <circle
+                        cx="150"
+                        cy="150"
+                        r="140"
+                        fill="none"
+                        stroke="rgba(160,0,0,0.28)"
+                        stroke-width="1"
+                    />
+                    <circle
+                        cx="150"
+                        cy="150"
+                        r="120"
+                        fill="none"
+                        stroke="rgba(160,0,0,0.38)"
+                        stroke-width="0.5"
+                    />
+                    <circle
+                        cx="150"
+                        cy="150"
+                        r="100"
+                        fill="none"
+                        stroke="rgba(210,190,160,0.16)"
+                        stroke-width="1"
+                    />
+                    <circle
+                        cx="150"
+                        cy="150"
+                        r="80"
+                        fill="none"
+                        stroke="rgba(160,0,0,0.44)"
+                        stroke-width="0.5"
+                    />
+                    <circle
+                        cx="150"
+                        cy="150"
+                        r="60"
+                        fill="none"
+                        stroke="rgba(210,190,160,0.20)"
+                        stroke-width="1"
+                    />
+                    <circle
+                        cx="150"
+                        cy="150"
+                        r="40"
+                        fill="none"
+                        stroke="rgba(160,0,0,0.58)"
+                        stroke-width="0.5"
+                    />
+                    <circle
+                        cx="150"
+                        cy="150"
+                        r="20"
+                        fill="none"
+                        stroke="rgba(210,190,160,0.32)"
+                        stroke-width="1"
+                    />
+                    <circle cx="150" cy="150" r="5" fill="rgba(180,0,0,0.75)" />
+                    <line
+                        x1="150"
+                        y1="10"
+                        x2="150"
+                        y2="290"
+                        stroke="rgba(160,0,0,0.16)"
+                        stroke-width="0.5"
+                    />
+                    <line
+                        x1="10"
+                        y1="150"
+                        x2="290"
+                        y2="150"
+                        stroke="rgba(160,0,0,0.16)"
+                        stroke-width="0.5"
+                    />
+                    <line
+                        x1="51"
+                        y1="51"
+                        x2="249"
+                        y2="249"
+                        stroke="rgba(160,0,0,0.10)"
+                        stroke-width="0.5"
+                    />
+                    <line
+                        x1="249"
+                        y1="51"
+                        x2="51"
+                        y2="249"
+                        stroke="rgba(160,0,0,0.10)"
+                        stroke-width="0.5"
+                    />
+                    <path
+                        d="M150,150 Q170,130 160,110 Q148,88 128,98 Q105,110 115,133 Q126,158 152,162 Q180,165 194,143 Q210,118 196,92 Q180,63 150,58 Q116,53 96,75 Q73,100 80,135 Q88,172 120,188 Q155,204 190,192"
+                        fill="none"
+                        stroke="rgba(220,90,60,0.65)"
+                        stroke-width="1.5"
+                        filter="url(#fuzz)"
+                    />
                 </svg>
             </div>
 
-            <div class="hero-scroll-hint">листай    _</div>
+            <div class="hero-scroll-hint">листай _</div>
         </section>
 
         <!-- ===== TICKER ===== -->
@@ -79,8 +220,9 @@
                 <span>не смотри назад</span><span class="t-sep">█</span>
                 <span>оно следит за тобой</span><span class="t-sep">█</span>
                 <span>ты был здесь раньше</span><span class="t-sep">█</span>
-                <span>мы не оставляли эти послания</span><span class="t-sep">█</span>
-                <span>что то еще работает</span><span class="t-sep">█</span>
+                <span>мы не оставляли эти послания</span
+                ><span class="t-sep">█</span> <span>что то еще работает</span
+                ><span class="t-sep">█</span>
                 <span>ты не должен это читать</span><span class="t-sep">█</span>
                 <span>закрой вкладку</span><span class="t-sep">█</span>
                 <span>уже поздно</span><span class="t-sep">█</span>
@@ -88,8 +230,9 @@
                 <span>не смотри назад</span><span class="t-sep">█</span>
                 <span>оно следит за тобой</span><span class="t-sep">█</span>
                 <span>ты был здесь раньше</span><span class="t-sep">█</span>
-                <span>мы не оставляли эти послания</span><span class="t-sep">█</span>
-                <span>что то еще работает</span><span class="t-sep">█</span>
+                <span>мы не оставляли эти послания</span
+                ><span class="t-sep">█</span> <span>что то еще работает</span
+                ><span class="t-sep">█</span>
                 <span>ты не должен это читать</span><span class="t-sep">█</span>
                 <span>закрой вкладку</span><span class="t-sep">█</span>
                 <span>уже поздно</span><span class="t-sep">█</span>
@@ -104,9 +247,9 @@
                 <div class="about-grid">
                     <div class="about-text">
                         <p>
-                            я разработчик, помешанный на мертвом визуале.
-                            архив, саморазрушение, сбой, ассиметрия, мне нравится
-                            когда это заставляет вас что-то чувствовать.
+                            я разработчик, помешанный на мертвом визуале. архив,
+                            саморазрушение, сбой, ассиметрия, мне нравится когда
+                            это заставляет вас что-то чувствовать.
                         </p>
                         <p>
                             доступен для внештатной работы.<br />
@@ -115,11 +258,12 @@
                     </div>
                     <div class="about-skills">
                         <ul>
-                            <li>HTML / CSS / JS</li>
-                            <li>Canvas &amp; WebGL</li>
-                            <li>Creative Coding</li>
-                            <li>Dark UI Design</li>
-                            <li>Performance</li>
+                            <li>[✓] html_css_js.exe</li>
+                            <li>[✓] python.exe</li>
+                            <li>[✓] c++.exe</li>
+                            <li>[✓] c#.exe</li>
+                            <li>[✓] linux.core (cli, bash, ssh, system)</li>
+                            <li>[✓] destroy.exe</li>
                         </ul>
                     </div>
                 </div>
@@ -132,10 +276,12 @@
                 <p class="section-tag">// 002</p>
                 <h2 class="section-title">работы</h2>
                 <div class="work-grid-tds">
-
                     <div class="wc" data-num="001">
                         <div class="wc-preview" id="preview-01">
-                            <canvas class="wc-canvas" id="mini-canvas-01"></canvas>
+                            <canvas
+                                class="wc-canvas"
+                                id="mini-canvas-01"
+                            ></canvas>
                             <span class="wc-nosignal">[ нет сигнала ]</span>
                         </div>
                         <div class="wc-body">
@@ -143,18 +289,26 @@
                                 <span class="wc-num">001</span>
                                 <span class="wc-tag">веб / эксперимент</span>
                             </div>
-                            <h3 class="wc-title">GLITCH<br>GENERATOR</h3>
-                            <p class="wc-desc">зрафический генератор сбоев, который работает на основе данных, вводимых вашей мышью</p>
+                            <h3 class="wc-title">GLITCH<br />GENERATOR</h3>
+                            <p class="wc-desc">
+                                графический генератор сбоев, который работает на
+                                основе данных, вводимых вашей мышью
+                            </p>
                             <div class="wc-footer">
                                 <span class="wc-year">2026</span>
-                                <a href="project01.html" class="wc-link">открыть ↗</a>
+                                <a href="project01.html" class="wc-link"
+                                    >открыть ↗</a
+                                >
                             </div>
                         </div>
                     </div>
 
                     <div class="wc" data-num="002">
                         <div class="wc-preview" id="preview-02">
-                            <canvas class="wc-canvas" id="mini-canvas-02"></canvas>
+                            <canvas
+                                class="wc-canvas"
+                                id="mini-canvas-02"
+                            ></canvas>
                             <span class="wc-nosignal">[ нет сигнала ]</span>
                         </div>
                         <div class="wc-body">
@@ -162,33 +316,46 @@
                                 <span class="wc-num">002</span>
                                 <span class="wc-tag">канвас / аудио</span>
                             </div>
-                            <h3 class="wc-title">SOUND<br>VISUALIZER</h3>
-                            <p class="wc-desc">звуковой визуализатор, созданный для пещеры</p>
+                            <h3 class="wc-title">SOUND<br />VISUALIZER</h3>
+                            <p class="wc-desc">
+                                звуковой визуализатор, созданный для пещеры
+                            </p>
                             <div class="wc-footer">
                                 <span class="wc-year">2026</span>
-                                <a href="project02.html" class="wc-link">открыть ↗</a>
+                                <a href="project02.html" class="wc-link"
+                                    >открыть ↗</a
+                                >
                             </div>
                         </div>
                     </div>
 
-                    <div class="wc wc-locked" data-num="003">
-                        <div class="wc-preview">
-                            <span class="wc-nosignal">[ в процессе ]</span>
+                    <div class="wc" data-num="003">
+                        <div class="wc-preview" id="preview-03">
+                            <canvas
+                                class="wc-canvas"
+                                id="mini-canvas-03"
+                            ></canvas>
+                            <span class="wc-nosignal">[ нет сигнала ]</span>
                         </div>
                         <div class="wc-body">
                             <div class="wc-meta">
                                 <span class="wc-num">003</span>
-                                <span class="wc-tag">инструмент / опен сурс</span>
+                                <span class="wc-tag"
+                                    >инструмент / опен сурс</span
+                                >
                             </div>
-                            <h3 class="wc-title">NOISE<br>CLI</h3>
-                            <p class="wc-desc">инструмент CLI для создания шумовых текстур в терминале</p>
+                            <h3 class="wc-title">NOISE<br />CLI</h3>
+                            <p class="wc-desc">
+                                браузерный CLI для генерации шумовых ASCII-текстур
+                            </p>
                             <div class="wc-footer">
                                 <span class="wc-year">2026</span>
-                                <span class="wc-link wc-link-dim">скоро</span>
+                                <a href="project03.html" class="wc-link"
+                                    >открыть ↗</a
+                                >
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
@@ -199,12 +366,36 @@
                 <p class="section-tag">// 003</p>
                 <h2 class="section-title">контакты</h2>
                 <p class="contact-text">
-                    есть проект? странная идея? навязчивые мысли?
-                    давай придумаем что нибудь неудобное.
+                    есть проект? странная идея? навязчивые мысли? давай
+                    придумаем что нибудь неудобное.
                 </p>
-                <a href="mailto:hello@void.works" class="btn-ghost"
-                    >hello@void.works</a
-                >
+                <div class="contact-links">
+                    <a href="mailto:ohyz@bk.ru" class="contact-link">
+                        <span class="cl-label">// email</span>
+                        <span class="cl-value">ohyz@bk.ru</span>
+                        <span class="cl-arrow">↗</span>
+                    </a>
+                    <a
+                        href="https://github.com/ohyzz"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="contact-link"
+                    >
+                        <span class="cl-label">// github</span>
+                        <span class="cl-value">/ohyzz</span>
+                        <span class="cl-arrow">↗</span>
+                    </a>
+                    <a
+                        href="https://t.me/crickacracka"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="contact-link"
+                    >
+                        <span class="cl-label">// telegram</span>
+                        <span class="cl-value">@crickacracka</span>
+                        <span class="cl-arrow">↗</span>
+                    </a>
+                </div>
             </div>
         </section>
 
@@ -233,25 +424,42 @@
             <div class="viz-header">
                 <span class="viz-title">// проект_02 — sound_viz</span>
                 <div class="viz-controls">
-                    <button class="viz-btn" id="viz-mode-btn">[ частота ]</button>
+                    <button class="viz-btn" id="viz-mode-btn">
+                        [ частота ]
+                    </button>
                     <button class="viz-btn" id="viz-demo-btn">[ демо ]</button>
                     <div class="viz-gain-wrap">
-                        <label class="viz-gain-label" for="viz-gain">получить</label>
-                        <input type="range" id="viz-gain" min="1" max="8" step="0.2" value="3" />
+                        <label class="viz-gain-label" for="viz-gain"
+                            >получить</label
+                        >
+                        <input
+                            type="range"
+                            id="viz-gain"
+                            min="1"
+                            max="8"
+                            step="0.2"
+                            value="3"
+                        />
                     </div>
-                    <button class="viz-btn viz-btn-close" id="viz-close-btn">[ выйти ]</button>
+                    <button class="viz-btn viz-btn-close" id="viz-close-btn">
+                        [ выйти ]
+                    </button>
                 </div>
             </div>
             <canvas id="viz-canvas"></canvas>
             <div class="viz-footer">
-                <span id="viz-status">[ нажми канвас или [ демо ] что бы начать ]</span>
-                <span class="viz-mode-display" id="viz-mode-label">частота</span>
+                <span id="viz-status"
+                    >[ нажми канвас или [ демо ] что бы начать ]</span
+                >
+                <span class="viz-mode-display" id="viz-mode-label"
+                    >частота</span
+                >
             </div>
         </div>
 
         <!-- ===== FOOTER ===== -->
         <footer class="footer">
-            <span>_void.works &copy; 2026</span>
+            <span>_ohyz.works &copy; 2026</span>
             <span>все права сожжены</span>
         </footer>
 
