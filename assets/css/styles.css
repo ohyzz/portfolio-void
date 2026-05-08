@@ -12,7 +12,7 @@
   padding: 0;
 }
 
-:root { 
+:root {
   --bg:        #060606;
   --bg-2:      #0b0b0b;
   --bg-3:      #101010;
@@ -28,16 +28,36 @@
   --display: 'Bebas Neue', sans-serif;
 }
 
+/* Светлая тема */
+:root.light-theme {
+  --bg:        #fafafa;
+  --bg-2:      #f5f5f5;
+  --bg-3:      #f0f0f0;
+  --border:    #e0e0e0;
+  --text:      #404040;
+  --text-dim:  #b0b0b0;
+  --accent:    #1a1a1a;
+  --red:       #ff4444;
+  --red-mid:   #ff6666;
+  --red-dim:   #ffcccc;
+}
+
 html {
   scroll-behavior: smooth;
   scrollbar-width: thin;
   scrollbar-color: #3a0000 var(--bg);
 }
 
+:root.light-theme {
+  scrollbar-color: var(--red) var(--bg);
+}
+
 /* Webkit scrollbar */
 ::-webkit-scrollbar       { width: 5px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: #3a0000; }
+
+:root.light-theme ::-webkit-scrollbar-thumb { background: var(--red); }
 
 /* Text selection */
 ::selection {
@@ -62,6 +82,18 @@ body {
   45%      { background-color: #080304; }
   50%      { background-color: #090405; }
   55%      { background-color: #080304; }
+}
+
+/* Светлая тема: пульсация между белым и розоватым */
+:root.light-theme body {
+  animation: body-pulse-light 11s ease-in-out infinite;
+}
+
+@keyframes body-pulse-light {
+  0%, 100% { background-color: #fafafa; }
+  45%      { background-color: #fff5f5; }
+  50%      { background-color: #fff0f0; }
+  55%      { background-color: #fff5f5; }
 }
 
 /* Тряска — класс вешается из JS */
@@ -107,6 +139,16 @@ body::after {
   z-index: 8990;
 }
 
+/* Светлая тема: инвертированная виньетка */
+:root.light-theme body::after {
+  background:
+    radial-gradient(ellipse at 50% 50%,
+      transparent 25%,
+      rgba(255, 255, 255, 0.4) 65%,
+      rgba(240, 240, 240, 0.6) 100%
+    );
+}
+
 /* Движущаяся сканлиния */
 body::before {
   content: '';
@@ -124,6 +166,17 @@ body::before {
   z-index: 9002;
   pointer-events: none;
   animation: scan-travel 10s linear infinite;
+}
+
+/* Светлая тема: темная сканлиния */
+:root.light-theme body::before {
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(0,0,0,0.018) 30%,
+    rgba(0,0,0,0.03) 50%,
+    rgba(0,0,0,0.018) 70%,
+    transparent 100%
+  );
 }
 
 @keyframes scan-travel {
@@ -145,6 +198,12 @@ body::before {
   mix-blend-mode: difference;
 }
 
+/* Светлая тема: красный курсор без blend mode */
+:root.light-theme .cursor {
+  background: var(--red);
+  mix-blend-mode: normal;
+}
+
 .cursor-trail {
   position: fixed;
   width: 28px;
@@ -155,6 +214,11 @@ body::before {
   z-index: 9998;
   transform: translate(-50%, -50%);
   transition: left 0.14s ease-out, top 0.14s ease-out;
+}
+
+/* Светлая тема: красный trail */
+:root.light-theme .cursor-trail {
+  border-color: rgba(255, 68, 68, 0.3);
 }
 
 .cursor.active {
@@ -174,6 +238,11 @@ body::before {
   animation: grain-move 0.4s steps(2) infinite;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   background-size: 256px 256px;
+}
+
+/* Светлая тема: меньше grain */
+:root.light-theme .grain {
+  opacity: 0.04;
 }
 
 @keyframes grain-move {
@@ -203,8 +272,18 @@ body::before {
   transition: border-color 0.3s;
 }
 
+/* Светлая тема: светлая навигация */
+:root.light-theme .nav {
+  background: rgba(250, 250, 250, 0.92);
+  border-bottom-color: var(--border);
+}
+
 .nav.scrolled {
   border-color: #2a0000;
+}
+
+:root.light-theme .nav.scrolled {
+  border-color: var(--red-mid);
 }
 
 .nav-logo {
@@ -213,6 +292,26 @@ body::before {
   color: var(--accent);
   letter-spacing: 0.08em;
   animation: logo-stutter 18s ease-in-out infinite;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.theme-toggle {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  letter-spacing: 0.12em;
+  cursor: none;
+  transition: color 0.2s;
+  user-select: none;
+}
+
+.theme-toggle:hover {
+  color: var(--accent);
 }
 
 @keyframes logo-stutter {
@@ -233,8 +332,16 @@ body::before {
   border-left: 1px solid #110000;
 }
 
+:root.light-theme .nav-links li {
+  border-left-color: var(--border);
+}
+
 .nav-links li:last-child {
   border-right: 1px solid #110000;
+}
+
+:root.light-theme .nav-links li:last-child {
+  border-right-color: var(--border);
 }
 
 .nav-links a {
@@ -252,6 +359,10 @@ body::before {
 .nav-links a:hover {
   color: var(--accent);
   background: rgba(80,0,0,0.1);
+}
+
+:root.light-theme .nav-links a:hover {
+  background: rgba(255,68,68,0.08);
 }
 
 .nav-links a.nav-active {
@@ -617,6 +728,14 @@ body {
 
 .wc:hover {
   background: #0f0404;
+}
+
+:root.light-theme .wc {
+  background: var(--bg);
+}
+
+:root.light-theme .wc:hover {
+  background: var(--bg-3);
 }
 
 .wc:hover::before {

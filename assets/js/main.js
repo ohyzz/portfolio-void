@@ -3,6 +3,7 @@
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
+  initTheme();
   initCursor();
   initNav();
   initReveal();
@@ -13,6 +14,39 @@ document.addEventListener('DOMContentLoaded', () => {
   initWorkPreviews();
   initNavActiveState();
 });
+
+/* --------------------------------------------------
+   0. ПЕРЕКЛЮЧЕНИЕ ТЕМЫ
+   -------------------------------------------------- */
+function initTheme() {
+  const toggle = document.getElementById('theme-toggle');
+  if (!toggle) return;
+
+  // Загружаем сохраненную тему из localStorage
+  const savedTheme = localStorage.getItem('theme');
+  const root = document.documentElement;
+
+  // Применяем сохраненную тему или оставляем темную по умолчанию
+  if (savedTheme === 'light') {
+    root.classList.add('light-theme');
+    toggle.textContent = '/light';
+  } else {
+    toggle.textContent = '/dark';
+  }
+
+  // Обработчик клика на переключатель
+  toggle.addEventListener('click', () => {
+    const isLight = root.classList.toggle('light-theme');
+
+    if (isLight) {
+      toggle.textContent = '/light';
+      localStorage.setItem('theme', 'light');
+    } else {
+      toggle.textContent = '/dark';
+      localStorage.setItem('theme', 'dark');
+    }
+  });
+}
 
 /* --------------------------------------------------
    1. КАСТОМНЫЙ КУРСОР
